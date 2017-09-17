@@ -1,4 +1,4 @@
-import http, { Server } from 'http';
+import { Server } from 'http';
 
 export default class ServerAPI extends Server {
   constructor (port = 80, root = __dirname) {

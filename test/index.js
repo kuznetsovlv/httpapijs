@@ -59,14 +59,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.getContentType = undefined;
 
 	var _ServerAPI = __webpack_require__(1);
 
 	var _ServerAPI2 = _interopRequireDefault(_ServerAPI);
 
+	var _getContentType = __webpack_require__(4);
+
+	var _getContentType2 = _interopRequireDefault(_getContentType);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _ServerAPI2.default;
+	exports.getContentType = _getContentType2.default;
 
 /***/ }),
 /* 1 */
@@ -102,10 +108,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
 	var _http = __webpack_require__(3);
-
-	var _http2 = _interopRequireDefault(_http);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -178,6 +180,74 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports) {
 
 	module.exports = require("http");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getContentType = __webpack_require__(5);
+
+	var _getContentType2 = _interopRequireDefault(_getContentType);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _getContentType2.default;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _constants = __webpack_require__(6);
+
+	var MIME = {
+	  '.txt': 'text/plain; ' + _constants.charsetCode,
+	  '.htm': 'text/html; ' + _constants.charsetCode,
+	  '.html': 'text/html; ' + _constants.charsetCode,
+	  '.js': 'text/javascript; ' + _constants.charsetCode,
+	  '.css': 'text/css; ' + _constants.charsetCode,
+	  '.bin': 'application/binary',
+	  '.json': 'application/json; ' + _constants.charsetCode,
+	  '.jpeg': 'image/jpeg',
+	  '.jpg': 'image/jpeg',
+	  '.png': 'image/png',
+	  '.ico': 'image/x-icon',
+	  '.mp4': 'video/mp4',
+	  '.mp3': 'audio/mp3',
+	  '.gif': 'image/gif'
+	};
+
+	exports.default = function () {
+	  var mime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.html';
+
+	  if (!/^\..*/.test(mime)) {
+	    mime = '.' + mime;
+	  }
+
+	  return MIME[mime];
+	};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var charsetCode = exports.charsetCode = 'charset=utf-8';
 
 /***/ })
 /******/ ])
