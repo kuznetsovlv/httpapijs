@@ -1,0 +1,16 @@
+{
+  "name": "httpapijs",
+  "version": "0.0.0",
+  "description": "Simple API for http server on NodeJS",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "http",
+    "server",
+    "api"
+  ],
+  "author": "Kuznetsov Leonid",
+  "license": "MIT"
+}
