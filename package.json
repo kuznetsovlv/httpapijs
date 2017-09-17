@@ -4,7 +4,13 @@
   "description": "Simple API for http server on NodeJS",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clear": "rm -rf dist",
+    "dist-clear": "npm run clear && rm -f test/index*",
+    "product": "NODE_ENV=product webpack",
+    "dev": "NODE_ENV=development webpack",
+    "build": "npm run clear && npm run product",
+    "start": "npm run dev",
+    "test": "babel-node ./test/test.js"
   },
   "keywords": [
     "http",

@@ -5,8 +5,6 @@ const path = require('path');
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 const DEV = NODE_ENV === "development";
-const TEST = NODE_ENV === "test";
-const WEB = NODE_ENV === "web";
 const PRODUCT = NODE_ENV === "product";
 
 const plugins = [
@@ -15,15 +13,10 @@ const plugins = [
 		'process.env': {
 			NODE_ENV: JSON.stringify(NODE_ENV),
 			DEV: JSON.stringify(DEV),
-			TEST: JSON.stringify(TEST),
-			WEB: JSON.stringify(WEB),
 			PRODUCT: JSON.stringify(PRODUCT)
 		}
 	})
 ];
-
-const webOutput = {filename: 'fcron.js', path: path.resolve(__dirname, 'web'), library: 'fcronjs', libraryTarget: 'var'};
-const defaultOutput = {filename: 'index.js', path: path.resolve(__dirname, DEV || TEST  ? 'test' : 'dist'), library: 'fcronjs', libraryTarget: 'umd'};
 
 const productPlugins = [
 	new webpack.optimize.UglifyJsPlugin({
@@ -31,25 +24,16 @@ const productPlugins = [
 	})
 ];
 
-function getExtentions () {
-	const extentions = ['', '.js'];
-
-	if (DEV || TEST)
-		extentions.push('_dev.js');
-
-	return extentions;
-}
-
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
 
-	entry: 'index', //DEV || TEST ? 'index_dev' : 'index',
+	entry: 'index',
 
 	noInfo: true,
 
 	target: 'node',
 
-	output: WEB ? webOutput : defaultOutput,
+	output: {filename: 'index.js', path: path.resolve(__dirname, DEV ? 'test' : 'dist'), library: 'httpapijs', libraryTarget: 'umd'},
 
 	watch: DEV,
 
@@ -63,7 +47,7 @@ module.exports = {
 
 	resolve: {
 		modulesDirectories: ['node_modules', 'src'],
-		extensions: getExtentions()
+		extensions: ['', '.js']
 	},
 
 	resolveLoader: {
