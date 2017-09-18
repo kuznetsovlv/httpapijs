@@ -12,4 +12,12 @@ server.on('get', (request, response) => {
   response.end('Hello!');
 });
 
+server.on('get', (request, response) => {
+  response.statusCode = 200;
+  response.statusMessage = getStatusText(200);
+  response.setHeader('Content-Type', getContentType('txt'));
+  response.setHeader('Content-length', 'Hello! 2'.length);
+  response.end('Hello! 2');
+});
+
 server.up();

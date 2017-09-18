@@ -120,6 +120,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var HANDLERS = {};
+
 	var ServerAPI = function (_Server) {
 	  _inherits(ServerAPI, _Server);
 
@@ -136,14 +138,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _this.on = _this.on.bind(_this);
 	    _this.up = _this.up.bind(_this);
-	    _get(ServerAPI.prototype.__proto__ || Object.getPrototypeOf(ServerAPI.prototype), 'on', _this).call(_this, 'request', _this.onRequest);
+
+	    _this.on('request', _this.onRequest.bind(_this));
 	    return _this;
 	  }
 
 	  _createClass(ServerAPI, [{
 	    key: 'onRequest',
 	    value: function onRequest(request, response) {
-	      this.emit(request.method.toLowerCase(), request, response);
+	      // this.emit(request.method.toLowerCase(), request, response);
+
+	      var method = request.method;
+
+	      var type = method.toLowerCase();
+
+	      if (Object.prototype.hasOwnProperty.call(HANDLERS, type)) {
+	        HANDLERS[type](request, response);
+	      }
 	    }
 	  }, {
 	    key: 'on',
@@ -152,10 +163,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        case 'start':
 	          this.onStart = handler.bind(this);
 	          break;
+	        case 'connection':
 	        case 'request':
+	          _get(ServerAPI.prototype.__proto__ || Object.getPrototypeOf(ServerAPI.prototype), 'on', this).call(this, type, handler);
 	          break;
 	        default:
-	          _get(ServerAPI.prototype.__proto__ || Object.getPrototypeOf(ServerAPI.prototype), 'on', this).call(this, type, handler);
+	          HANDLERS[type] = handler;
 	      }
 
 	      return this;

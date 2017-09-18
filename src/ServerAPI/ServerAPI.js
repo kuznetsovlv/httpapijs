@@ -1,5 +1,7 @@
 import { Server } from 'http';
 
+const HANDLERS = {};
+
 export default class ServerAPI extends Server {
   constructor (port = 80, root = __dirname) {
     super();
@@ -8,11 +10,19 @@ export default class ServerAPI extends Server {
 
     this.on = this.on.bind(this);
     this.up = this.up.bind(this);
-    super.on('request', this.onRequest);
+
+    this.on('request', this.onRequest.bind(this));
   }
 
   onRequest (request, response) {
-    this.emit(request.method.toLowerCase(), request, response);
+    // this.emit(request.method.toLowerCase(), request, response);
+
+    const { method } = request;
+    const type = method.toLowerCase();
+
+    if (Object.prototype.hasOwnProperty.call(HANDLERS, type)) {
+      HANDLERS[type](request, response);
+    }
   }
 
   on (type, handler) {
@@ -20,9 +30,12 @@ export default class ServerAPI extends Server {
       case 'start':
         this.onStart = handler.bind(this);
         break;
-      case 'request': break;
-      default:
+      case 'connection':
+      case 'request':
         super.on(type, handler);
+        break;
+      default:
+        HANDLERS[type] = handler;
     }
 
     return this;
