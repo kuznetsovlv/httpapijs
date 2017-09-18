@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getContentType = undefined;
+	exports.getStatusText = exports.getContentType = undefined;
 
 	var _ServerAPI = __webpack_require__(1);
 
@@ -69,10 +69,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _getContentType2 = _interopRequireDefault(_getContentType);
 
+	var _getStatusText = __webpack_require__(7);
+
+	var _getStatusText2 = _interopRequireDefault(_getStatusText);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _ServerAPI2.default;
 	exports.getContentType = _getContentType2.default;
+	exports.getStatusText = _getStatusText2.default;
 
 /***/ }),
 /* 1 */
@@ -248,6 +253,110 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	var charsetCode = exports.charsetCode = 'charset=utf-8';
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getStatusText = __webpack_require__(8);
+
+	var _getStatusText2 = _interopRequireDefault(_getStatusText);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _getStatusText2.default;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _statuses = __webpack_require__(9);
+
+	var _statuses2 = _interopRequireDefault(_statuses);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (code) {
+	  return _statuses2.default[code];
+	};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  100: 'Continue',
+	  101: 'Switching Protocols',
+	  102: 'Processing',
+
+	  200: 'OK',
+	  201: 'Created',
+	  202: 'Accepted',
+	  203: 'Non-Authoritative Information',
+	  204: 'No Content',
+	  205: 'Reset Content',
+	  206: 'Partial Content',
+	  207: 'Multi-Status',
+	  208: 'Already Reported',
+	  226: 'IM Used',
+
+	  300: 'Multiple Choices',
+	  301: 'Moved Permanently',
+	  302: 'Found',
+	  303: 'See Other',
+	  304: 'Not Modified',
+	  305: 'Use Proxy',
+	  306: 'Switch Proxy',
+	  307: 'Temporary Redirect',
+	  308: 'Permanent Redirect',
+
+	  400: 'Bad Request',
+	  401: 'Unauthorized',
+	  402: 'Payment Required',
+	  403: 'Forbidden',
+	  404: 'Not Found',
+	  405: 'Method Not Allowed',
+	  406: 'Not Acceptable',
+	  407: 'Proxy Authentication Required',
+	  408: 'Request Timeout',
+	  409: 'Conflict',
+	  410: 'Gone',
+	  411: 'Length Required',
+
+	  500: 'Internal Server Error',
+	  501: 'Not Implemented',
+	  502: 'Bad Gateway',
+	  503: 'Service Unavailable',
+	  504: 'Gateway Timeout',
+	  505: 'HTTP Version Not Supported',
+	  506: 'Variant Also Negotiates',
+	  507: 'Insufficient Storage',
+	  508: 'Loop Detected',
+	  509: 'Bandwidth Limit Exceeded',
+	  510: 'Not Extended',
+	  511: 'Network Authentication Required',
+	  520: 'Unknown Error',
+	  522: 'Origin Connection Time-out',
+	  598: 'Network read timeout error',
+	  599: 'Network connect timeout error'
+	};
 
 /***/ })
 /******/ ])
