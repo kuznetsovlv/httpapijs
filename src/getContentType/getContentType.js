@@ -17,6 +17,11 @@ const MIME = {
   '.gif': 'image/gif'
 };
 
+/**
+ * Returns default Content-Type header by mime.
+ * #params {string} [mime = '.html'] - file's mime type.
+ * #return {string} - Content-Type header.
+ */
 export default (mime = '.html') => {
   if (!/^\..*/.test(mime)) {
     mime = `.${mime}`;
