@@ -56,7 +56,7 @@ or
 * {string} type - type of event. Available start event emits at server's starting and lowercased names of request's events.
 * {function} handler - event handler. All events but start get request and response objects as arguments, start event does not get any arguments.
 
-You can set only one handler for each event. If you call on method with same event's name, only last handler will be set.
+You can set only one handler for each event. If you call on method with same event's name, only last handler will be set. But you can update it.
 
 #### `ServerAPI.up` - method to fire server.
 

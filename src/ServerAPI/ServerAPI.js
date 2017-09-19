@@ -42,7 +42,7 @@ export default class ServerAPI extends Server {
    *                              get any arguments.
    * #return this
    * You can set only one handler for each event. If you call on method with same event's name,
-   * only last handler will be set.
+   * only last handler will be set. But you can update it.
    */
   on (type, handler) {
     switch (type) {
