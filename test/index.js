@@ -122,6 +122,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var HANDLERS = {};
 
+	/**
+	 * handleRequest method emits events of http request's methods types.
+	 * #params {Object} request - object request.
+	 * #params {Object} response - object of response.
+	 */
+	function handleRequest(request, response) {
+	  var method = request.method;
+
+	  var type = method.toLowerCase();
+
+	  if (Object.prototype.hasOwnProperty.call(HANDLERS, type)) {
+	    HANDLERS[type](request, response);
+	  }
+	}
+
+	/**
+	 * Class of main server api.
+	 * #params {number} [port = 80] - listening port.
+	 * #param {string} [root = __dirname] - root dirrectory of content.
+	 */
+
 	var ServerAPI = function (_Server) {
 	  _inherits(ServerAPI, _Server);
 
@@ -139,24 +160,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.on = _this.on.bind(_this);
 	    _this.up = _this.up.bind(_this);
 
-	    _this.on('request', _this.onRequest.bind(_this));
+	    _this.on('request', handleRequest.bind(_this));
 	    return _this;
 	  }
 
+	  /**
+	   * Method to set handlers, adds start handler and handlers for request's types.
+	   * #param {string} type - type of event. Available start event emits at
+	   *                        server's starting and lowercased names of request's events.
+	   * #params {function} handler - event handler. All events but start get request and
+	   *                              response objects as arguments, start event does not
+	   *                              get any arguments.
+	   * #return this
+	   * You can set only one handler for each event. If you call on method with same event's name,
+	   * only last handler will be set.
+	   */
+
+
 	  _createClass(ServerAPI, [{
-	    key: 'onRequest',
-	    value: function onRequest(request, response) {
-	      // this.emit(request.method.toLowerCase(), request, response);
-
-	      var method = request.method;
-
-	      var type = method.toLowerCase();
-
-	      if (Object.prototype.hasOwnProperty.call(HANDLERS, type)) {
-	        HANDLERS[type](request, response);
-	      }
-	    }
-	  }, {
 	    key: 'on',
 	    value: function on(type, handler) {
 	      switch (type) {
@@ -173,6 +194,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return this;
 	    }
+
+	    /**
+	     * Method to fire server.
+	     * #return this
+	     */
+
 	  }, {
 	    key: 'up',
 	    value: function up() {
@@ -246,6 +273,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  '.gif': 'image/gif'
 	};
 
+	/**
+	 * Returns default Content-Type header by mime.
+	 * #params {string} [mime = '.html'] - file's mime type.
+	 * #return {string} - Content-Type header.
+	 */
+
 	exports.default = function () {
 	  var mime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '.html';
 
@@ -301,6 +334,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * Returns humanreadable status by it's code.
+	 * #params {number | string} code - statuses code.
+	 * #return {string} - humanreadable status.
+	 */
 	exports.default = function (code) {
 	  return _statuses2.default[code];
 	};
